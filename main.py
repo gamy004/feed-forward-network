@@ -1,20 +1,23 @@
 import numpy as np
-from sklearn.datasets import make_classification
+from sklearn.datasets import make_multilabel_classification
 from sklearn.model_selection import train_test_split
 
-seed=1234
+seed = 1234
+num_hidden_units= 2
 
 
-def feed_forward(x):
-    print(x)
+def make_model(n_input, n_output):
+    W = [np.random.rand(num_hidden_units, n_input), np.random.rand(n_output, num_hidden_units)]
+
+    return W
 
 
 def main():
-    X, y = make_classification(n_samples=100,
-                               n_features=4,
-                               n_clusters_per_class=1,
-                               n_classes=2,
-                               random_state=seed)
+    X, y = make_multilabel_classification(n_samples=10,
+                                          n_features=4,
+                                          n_classes=1,
+                                          n_labels=1,
+                                          random_state=seed)
 
     X_train, X_test, y_train, y_test = train_test_split(
         X,
@@ -23,11 +26,11 @@ def main():
         random_state=seed
     )
 
-    print(X_train, X_test, y_train, y_test)
+    n_input = X.shape[1]
+    n_output = y.shape[1]
 
-# Press the green button in the gutter to run the script.
+    model = make_model(n_input, n_output)
+
+
 if __name__ == '__main__':
     main()
-    # x_train, y_train, x_val, y_val, x_test, y_test = split_()
-    # network = feed_forward()
-
